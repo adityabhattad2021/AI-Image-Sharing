@@ -6,12 +6,18 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
+    provider = "mysql"
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id        String   @id @default(cuid())
+
+
+model ImageCollection {
+    id String @id @default(cuid())
     createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    prompt String @db.Text
+    imageUrl String @db.Text
+    authorId String 
+
+    @@index([authorId])
 }
