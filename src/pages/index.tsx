@@ -25,13 +25,6 @@ const Home: NextPage = () => {
       </Head>
       <main className="w-full h-full bg-white">
         <Navbar />
-        <button onClick={()=>{
-          const result = mutate({description:"a black apple"})
-          console.log(result);
-          
-        }} >
-          Generate 
-        </button>
         <MasonaryLayout/>
       </main>
     </>
