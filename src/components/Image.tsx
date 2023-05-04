@@ -1,16 +1,12 @@
 import {useState} from "react";
 import { MdDownloadForOffline } from 'react-icons/md';
 import Image from "next/image";
+import { RouterOutputs } from "~/utils/api";
 
-type Props = {
-    image:string;
-}
+type ImageType = RouterOutputs["images"]["getAll"][number];
 
-const ImageBox = (props:Props) => {
+const ImageBox = (props:ImageType) => {
     const [postHovered,setPostHovered] = useState(false);
-    
-   
-    
 
     return (
         <div className="m-5 ">
@@ -20,7 +16,7 @@ const ImageBox = (props:Props) => {
                 className="relative cursor-zoom-in w-auto hover:shadow-lg rounded-3xl overflow-hidden transition-all duration-500 ease-in-out"
             >
                 <Image
-                    src = {props.image}
+                    src = {props.imageUrl}
                     alt="awesome phote"
                     width={400}
                     height={50}

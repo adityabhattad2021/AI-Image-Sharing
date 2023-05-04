@@ -7,10 +7,9 @@ import Navbar from "~/components/Navbar";
 import { api } from "~/utils/api";
 
 const Home: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
-  console.log(hello.data);
+  api.images.getAll.useQuery()
+  // const prompt = api.images.generatePrompt.useQuery({what:"apple"})
   
-
   return (
     <>
       <Head>

@@ -19,7 +19,7 @@ const config = {
     defaultLocale: "en",
   },
   images:{
-    domains:['images.clerk.dev','www.pexels.com','images.pexels.com']
+    domains:['images.clerk.dev','www.pexels.com','images.pexels.com',"res.cloudinary.com"]
   },
 };
 export default config;

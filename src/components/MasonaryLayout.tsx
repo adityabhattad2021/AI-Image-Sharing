@@ -1,5 +1,6 @@
 import Masonry from "react-masonry-css";
 import ImageBox from "./Image";
+import { api } from "~/utils/api";
 
 
 const breakpoointColumnsObj = {
@@ -14,16 +15,19 @@ const breakpoointColumnsObj = {
 
 
 const MasonaryLayout = () => {
-
-      
+    const {data}=api.images.getAll.useQuery()
+    
+    if(!data){
+        return <div>There was some problem loading...</div>
+    }
 
     return (
         <Masonry className="flex animate-slide-fwd md:mt-[-15px] mx-2 md:mx-4" breakpointCols={breakpoointColumnsObj}>
-            {/* {images.map((image,_index) => {
+            {data.map((image,_index) => {
                 return(
-                    <ImageBox key={_index} image={image!}/>
+                    <ImageBox key={_index} {...image}/>
                 )
-            })} */}
+            })}
         </Masonry>
     )
 }
