@@ -1,5 +1,5 @@
 import {useState} from "react";
-import { MdDownloadForOffline } from 'react-icons/md';
+import { MdDeleteForever, MdDownloadForOffline } from 'react-icons/md';
 import Image from "next/image";
 import { RouterOutputs } from "~/utils/api";
 
@@ -26,10 +26,10 @@ const ImageBox = (props:ImageType) => {
                     postHovered && (
                         <div className="absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50" style={{height:
                         "100%"}}>
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-center justify-between absolute bottom-3 right-3">
                                 <div className="flex gap-2">
                                     <div className="bg-white w-9 h-9 p-2 rounded-full flex items-center justify-center text-dark text-xl opacity-75 hover:opacity-100 hover:shadow-md outline-none">
-                                        <MdDownloadForOffline/>
+                                        <MdDeleteForever/>
                                     </div>
                                 </div>
                             </div>
