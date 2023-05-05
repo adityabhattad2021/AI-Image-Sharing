@@ -47,68 +47,85 @@ export const imageRouter = createTRPCRouter({
                 "You are an expert DALLE prompts and generate excellent prompts, to generate accurate images from DALLE",
             },
             {
-              role:"user",
-              content:`Create a very descriptive prompt for DALLE to generate an image about ${input.what}, return a prompt wrapped inside angle brackets.`
-            }
+              role: "user",
+              content: `Create a very descriptive prompt for DALLE to generate an image about ${input.what}, return a prompt wrapped inside angle brackets.`,
+            },
           ],
         });
-        const prompt =  aiResponse.data.choices[0]?.message?.content;  
+        const prompt = aiResponse.data.choices[0]?.message?.content;
         return prompt;
       } catch (error) {
-         throw new TRPCError({
-          code:"INTERNAL_SERVER_ERROR",
-          message:"Could not get the prompt"
-         })
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Could not get the prompt",
+        });
       }
     }),
 
-    generateImages:privateProcedure.input(
-        z.object({
-            description:z.string().min(1).max(1000)
-        })
-    ).mutation(async({input})=>{
-      try{
+  generateImages: privateProcedure
+    .input(
+      z.object({
+        description: z.string().min(1).max(1000),
+      })
+    )
+    .mutation(async ({ input }) => {
+      try {
         console.log(input.description);
-        
-        const aiResponse =await openAI.createImage({
-            prompt:input.description,
-            n:4,
-            size:"1024x1024",
-        })
+
+        const aiResponse = await openAI.createImage({
+          prompt: input.description,
+          n: 4,
+          size: "1024x1024",
+        });
         const images = aiResponse.data.data;
         return images;
-      }catch(err){
-        console.log("OPEN AI ERROR: ",err);
+      } catch (err) {
+        console.log("OPEN AI ERROR: ", err);
         throw new TRPCError({
-          code:"INTERNAL_SERVER_ERROR",
-          message:"Could not get the image data"
-        })
-      }  
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Could not get the image data",
+        });
+      }
     }),
 
-    create:privateProcedure.input(
+  create: privateProcedure
+    .input(
       z.object({
-        images:z.array(z.string().min(1).max(1000)),
-        prompt:z.string().min(1).max(1000),
+        images: z.array(z.string().min(1).max(1000)),
+        prompt: z.string().min(1).max(1000),
       })
-    ).mutation(async ({ctx,input})=>{
+    )
+    .mutation(async ({ ctx, input }) => {
       const authorId = ctx.userId;
       const allImages = [];
-      for(const image of input.images){
+      for (const image of input.images) {
         const randomHeight = Math.floor(Math.random() * (1000 - 500 + 1)) + 500;
-        const uploadedImage = await cloudinary.uploader.upload(image,{width:1024,height:randomHeight,crop:"fill"});
-        console.log("uploadedImage: ",uploadedImage);
-        
+        const uploadedImage = await cloudinary.uploader.upload(image, {
+          width: 1024,
+          height: randomHeight,
+          crop: "fill",
+        });
+        console.log("uploadedImage: ", uploadedImage);
+
         const imageObj = await ctx.prisma.imageCollection.create({
-          data:{
-            imageUrl:uploadedImage.secure_url,
-            prompt:input.prompt,
-            authorId
-          }
-        })
+          data: {
+            imageUrl: uploadedImage.secure_url,
+            prompt: input.prompt,
+            authorId,
+          },
+        });
         allImages.push(imageObj);
       }
       return allImages;
-    })
-  
+    }),
+
+  getUserImages: privateProcedure.query(async ({ ctx }) => {
+    const authorId = ctx.userId;
+    const images = await ctx.prisma.imageCollection.findMany({
+      where: { authorId },
+      take: 100,
+      orderBy: [{ createdAt: "desc" }],
+    });
+    return images;
+  }),
 });
