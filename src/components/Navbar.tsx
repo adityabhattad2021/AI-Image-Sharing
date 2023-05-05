@@ -9,7 +9,7 @@ const Navbar = () => {
     const [toggleDrawer, setToggleDrawer] = useState(false);
 
     return (
-        <nav className="ease-in-out duration-300 md:m-7 px-4 md:rounded-3xl sticky top-0 md:top-2 z-10 bg-black backdrop-filter backdrop-blur-lg bg-opacity-30  md:border-black shadow-[rgba(0,_0,_0,_0.4)_0px_30px_90px] ">
+        <nav className="ease-in-out duration-300 md:m-7 px-4 md:rounded-3xl sticky top-0 md:top-2 z-10 bg-black backdrop-filter backdrop-blur-xl bg-opacity-30  md:border-black shadow-[rgba(_0,_0,_0,_0.9)_0px_20px_55px]">
             <div className="w-full mx-auto px-4">
                 <div className="flex items-center justify-between h-24">
                     <span className="text-3xl text-gray-900 font-bold font-Nota cursor-pointer">PixelMind</span>

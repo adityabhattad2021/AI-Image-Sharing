@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { v2 as cloudinary } from "cloudinary";
 import { Configuration, OpenAIApi } from "openai";
+import fs, { ReadStream } from "fs";
 
 import {
   createTRPCRouter,
@@ -88,6 +89,29 @@ export const imageRouter = createTRPCRouter({
       }
     }),
 
+  generateVariations:privateProcedure.input(
+    z.object({
+      imageUrl:z.string().min(1).max(1000),
+    })
+  ).mutation(async ({input})=>{
+    try {
+      const image:unknown=fs.createReadStream(input.imageUrl)
+      const aiResponse =await openAI.createImageVariation(
+          image as File,
+          4,
+          "1024x1012"
+      )
+      const genereateImages = aiResponse.data.data
+      return genereateImages;
+    } catch (error) {
+      console.log(error);
+      throw new TRPCError({
+        code:"INTERNAL_SERVER_ERROR",
+        message:"Cannot get image variations"
+      })
+    }
+  }),
+
   create: privateProcedure
     .input(
       z.object({
@@ -128,4 +152,23 @@ export const imageRouter = createTRPCRouter({
     });
     return images;
   }),
+  
+  delete:privateProcedure.input(z.object({
+    id: z.string().min(1).max(1000),
+  })).mutation(async ({ctx, input}) => {
+    const userId = ctx.userId;
+    const imageObj = await ctx.prisma.imageCollection.findUnique({
+      where: { id: input.id },
+    });
+    if(userId!==imageObj?.authorId) {
+      throw new TRPCError({
+        code: "UNAUTHORIZED",
+        message: "You are not authorized to delete this image",
+      });
+    }
+    const image = await ctx.prisma.imageCollection.delete({
+      where: { id: input.id },
+    });
+    return image;
+  })
 });
