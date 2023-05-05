@@ -53,7 +53,6 @@ export const imageRouter = createTRPCRouter({
           ],
         });
         const prompt =  aiResponse.data.choices[0]?.message?.content;  
-        console.log("Prompt is ",prompt); 
         return prompt;
       } catch (error) {
          throw new TRPCError({
@@ -69,15 +68,17 @@ export const imageRouter = createTRPCRouter({
         })
     ).mutation(async({input})=>{
       try{
-        const aiResponse =await  openAI.createImage({
+        console.log(input.description);
+        
+        const aiResponse =await openAI.createImage({
             prompt:input.description,
-            n:8,
+            n:4,
             size:"1024x1024",
         })
-        console.log(aiResponse);  
         const images = aiResponse.data.data;
         return images;
       }catch(err){
+        console.log("OPEN AI ERROR: ",err);
         throw new TRPCError({
           code:"INTERNAL_SERVER_ERROR",
           message:"Could not get the image data"
