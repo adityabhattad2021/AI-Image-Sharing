@@ -36,7 +36,7 @@ const Create = () => {
         onSuccess: (data) => {
             if (!data) {
                 console.log("There was some error while fetching the generated images");
-                
+
                 return;
             }
             console.log(data);
@@ -61,7 +61,7 @@ const Create = () => {
 
     return (
         <>
-            {modalOpen && <Modal setModalOpen={setModalOpen} generatedImages={generatedImages}/>}
+            {modalOpen && <Modal setModalOpen={setModalOpen} generatedImages={generatedImages} prompt={description} />}
             <div className="w-[93%] md:w-[95%] overflow-hidden h-screen  flex flex-col md:justify-center items-center gap-6 mx-4 mt-[80px] md:my-auto relative">
                 <h1 className="text-5xl md:text-6xl font-Nota mt-8 md:mt-30">Create</h1>
                 <div className="flex flex-col mt-4 w-full md:w-[900px] gap-6">
@@ -88,10 +88,13 @@ const Create = () => {
                         <input id="imagefile" type="file" className="hidden" />
                     </div>
                     {isMobile && <div className="w-full h-[70px] md:h-[350px] flex justify-around items-center ">
-                        <button className="ease-in-out w-[45%] duration-300  text-white bg-black font-semibold hover:text-black hover:bg-white py-4 px-6   border-black cursor-pointer hover:border-transparent rounded-[18px]  text-xl">
+                        <button className="ease-in-out w-[45%] duration-300  text-white bg-black font-semibold hover:text-black hover:bg-white py-4 px-6   border-black cursor-pointer hover:border-transparent rounded-[18px]  text-xl" onClick={() => getImages({ description: description })}>
                             Generate
                         </button>
-                        <button className="ease-in-out w-[45%] duration-300  text-white bg-black font-semibold hover:text-black hover:bg-white py-4 px-6   border-black cursor-pointer hover:border-transparent rounded-[18px]  text-xl">
+                        <button className="ease-in-out w-[45%] duration-300  text-white bg-black font-semibold hover:text-black hover:bg-white py-4 px-6   border-black cursor-pointer hover:border-transparent rounded-[18px]  text-xl" onClick={() => {
+                            setDescription("Generating an awesome image description for you...")
+                            getPrompt({ what: what })
+                        }}>
                             Ask?
                         </button>
                     </div>}

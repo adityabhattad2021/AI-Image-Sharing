@@ -84,6 +84,31 @@ export const imageRouter = createTRPCRouter({
           message:"Could not get the image data"
         })
       }  
+    }),
+
+    create:privateProcedure.input(
+      z.object({
+        images:z.array(z.string().min(1).max(1000)),
+        prompt:z.string().min(1).max(1000),
+      })
+    ).mutation(async ({ctx,input})=>{
+      const authorId = ctx.userId;
+      const allImages = [];
+      for(const image of input.images){
+        const randomHeight = Math.floor(Math.random() * (1000 - 500 + 1)) + 500;
+        const uploadedImage = await cloudinary.uploader.upload(image,{width:1024,height:randomHeight,crop:"fill"});
+        console.log("uploadedImage: ",uploadedImage);
+        
+        const imageObj = await ctx.prisma.imageCollection.create({
+          data:{
+            imageUrl:uploadedImage.secure_url,
+            prompt:input.prompt,
+            authorId
+          }
+        })
+        allImages.push(imageObj);
+      }
+      return allImages;
     })
   
 });
