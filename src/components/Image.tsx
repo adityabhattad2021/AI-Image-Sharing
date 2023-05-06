@@ -17,7 +17,6 @@ const ImageBox = (props:ImageType) => {
                     alt="awesome phote"
                     width={400}
                     height={50}
-                    
                 />
             </div>
         </div>

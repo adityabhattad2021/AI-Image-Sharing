@@ -1,7 +1,8 @@
-import Image from "next/image";
+import { default as NextImage } from "next/image";
 import type { ImagesResponseDataInner } from "openai";
-import { useState, useEffect } from "react";
+import { useState, useEffect, type ChangeEvent, type Dispatch, type SetStateAction } from "react";
 import logo from "~/assets/openai.png";
+import ConfirmModal from "~/components/ConfirmModal";
 import Modal from "~/components/ImageModal";
 import { api } from "~/utils/api";
 
@@ -10,8 +11,18 @@ const Create = () => {
     const [isMobile, setIsMobile] = useState(false)
     const [what, setWhat] = useState("");
     const [description, setDescription] = useState("")
-    const [generatedImages, setGeneratedImages] = useState<ImagesResponseDataInner[]>([])
+    const [generatedImages, setGeneratedImages] = useState<ImagesResponseDataInner[]>([]);
     const [modalOpen, setModalOpen] = useState(false)
+    const [imageForVariation,setImageForVariation]=useState<File>();
+    const [openConfirmVariationModal,setOpenConfirmVariationModal]=useState(false);
+
+
+    const handleImageUpload = (e:ChangeEvent<HTMLInputElement>):void=> {
+        if(!e?.target?.files?.length) return;
+
+        setImageForVariation(e?.target?.files[0]);
+        setOpenConfirmVariationModal(true);
+    };
 
 
     const getTextInsideAngleBrackets = (str: string): string => {
@@ -40,11 +51,10 @@ const Create = () => {
                 return;
             }
             console.log(data);
-            setModalOpen(true)
             setGeneratedImages(data);
+            setModalOpen(true)
         }
     })
-
 
 
     useEffect(() => {
@@ -61,6 +71,7 @@ const Create = () => {
 
     return (
         <>
+            {openConfirmVariationModal && <ConfirmModal image={imageForVariation as File} setOpenConfirmVariationModal={setOpenConfirmVariationModal} setImageForVariation={setImageForVariation as Dispatch<SetStateAction<File>>} setGeneratedImages={setGeneratedImages} setImageModal={setModalOpen} />}
             {modalOpen && <Modal setModalOpen={setModalOpen} generatedImages={generatedImages} prompt={description} />}
             <div className="w-[93%] md:w-[95%] overflow-hidden h-screen  flex flex-col md:justify-center items-center gap-6 mx-4 mt-[80px] md:my-auto relative">
                 <h1 className="text-5xl md:text-6xl font-Nota mt-8 md:mt-30">Create</h1>
@@ -71,10 +82,10 @@ const Create = () => {
                             !isMobile && (
                                 <>
                                     <button className="ease-in-out w-[16%] duration-300  text-white bg-black font-semibold hover:text-black hover:bg-white py-4 px-6   border-black cursor-pointer hover:border-transparent rounded-[18px]  text-xl" onClick={() => getImages({ description: description })} >Generate</button>
-                                    <button className="ease-in-out duration-300 w-full md:w-[7%] h-[60px] rounded-[20px] bg-[#00A67E] hover:bg-green-400 mt-4 md:mt-0 flex justify-center items-center " onClick={() => {
+                                    <button className="ease-in-out duration-300 w-full md:w-[7%] h-[60px] rounded-[20px]  bg-[#00A67E] hover:bg-green-400 mt-4 md:mt-0 flex justify-center items-center " onClick={() => {
                                         setDescription("Generating an awesome image description for you...")
                                         getPrompt({ what: what })
-                                    }}><Image src={logo} alt="OpenAI Icon" width={45} height={45} /></button>
+                                    }}><NextImage src={logo} alt="OpenAI Icon" className="invert" width={40} height={40} /></button>
                                 </>
                             )
                         }
@@ -85,7 +96,7 @@ const Create = () => {
                     </div>
                     <div className="w-full h-[70px] md:h-[350px] rounded-[30px] duration-400 ease-in-out flex justify-center items-center font-Nota font-bold backdrop-filter backdrop-blur-lg bg-opacity-10 bg-black focus:ring-white focus:border-white focus:shadow-lg p-4">
                         <label htmlFor="imagefile" className="cursor-pointer text-black font-Nota font-bold">&#x2022; Or select an existing image</label>
-                        <input id="imagefile" type="file" className="hidden" />
+                        <input id="imagefile" type="file" className="hidden" onChange={(e)=>handleImageUpload(e)} />
                     </div>
                     {isMobile && <div className="w-full h-[70px] md:h-[350px] flex justify-around items-center ">
                         <button className="ease-in-out w-[45%] duration-300  text-white bg-black font-semibold hover:text-black hover:bg-white py-4 px-6   border-black cursor-pointer hover:border-transparent rounded-[18px]  text-xl" onClick={() => getImages({ description: description })}>

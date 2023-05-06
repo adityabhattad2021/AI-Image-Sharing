@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { v2 as cloudinary } from "cloudinary";
 import { Configuration, OpenAIApi } from "openai";
-import fs, { ReadStream } from "fs";
+import fs from "fs"
 
 import {
   createTRPCRouter,
@@ -91,17 +91,22 @@ export const imageRouter = createTRPCRouter({
 
   generateVariations:privateProcedure.input(
     z.object({
-      imageUrl:z.string().min(1).max(1000),
+      imageFile:z.any(),
     })
   ).mutation(async ({input})=>{
     try {
-      const image:unknown=fs.createReadStream(input.imageUrl)
+      // console.log(input.imageFile);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      const buffer:Buffer = Buffer.from(input.imageFile, 'base64');
+      const file:any = buffer;
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      file.name = "image.png"      
       const aiResponse =await openAI.createImageVariation(
-          image as File,
+          file as File,
           4,
-          "1024x1012"
+          "1024x1024"
       )
-      const genereateImages = aiResponse.data.data
+      const genereateImages = aiResponse.data.data    
       return genereateImages;
     } catch (error) {
       console.log(error);

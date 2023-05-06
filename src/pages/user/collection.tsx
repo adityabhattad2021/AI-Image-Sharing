@@ -86,7 +86,7 @@ const CustomMasonaryLayout = () => {
 const CollectionPage=()=>{
     return (
         <div className="w-full h-full flex justify-center items-center flex-col">
-            <h1 className="ease-in-out duration-300 text-3xl md:text-6xl font-Nota my-16 md:my-20">Your Collection</h1>
+            <h1 className="ease-in-out duration-300 text-4xl md:text-6xl font-Nota my-12 md:my-20">Your Collection</h1>
             <CustomMasonaryLayout/>
         </div>
     )
