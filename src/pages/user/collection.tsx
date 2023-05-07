@@ -4,7 +4,6 @@ import Image from "next/image";
 import { MdDeleteForever } from "react-icons/md";
 import useScrollPosition from "~/hooks/useScrollPosition";
 import Navbar from "~/components/Navbar";
-import Loading from "~/components/Loading";
 
 
 
@@ -74,7 +73,7 @@ const breakpoointColumnsObj = {
 
 
 const CustomMasonaryLayout = () => {
-    const { data, hasNextPage, fetchNextPage, isFetching } = api.images.getAll.useInfiniteQuery({ limit: 10 }, { getNextPageParam: (lastPage) => lastPage.nextCursor })
+    const { data, hasNextPage, fetchNextPage, isFetching } = api.images.getUserImages.useInfiniteQuery({ limit: 10 }, { getNextPageParam: (lastPage) => lastPage.nextCursor })
 
     const scrollPosition = useScrollPosition()
 
@@ -87,9 +86,6 @@ const CustomMasonaryLayout = () => {
         }
     }, [scrollPosition, hasNextPage, isFetching, fetchNextPage])
 
-    if(isFetching){
-        return <Loading/>
-    }
     
     return (
         <>

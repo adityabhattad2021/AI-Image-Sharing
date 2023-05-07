@@ -131,7 +131,7 @@ const Create = () => {
                             Generate
                         </button>
                         <button className="group ease-in-out w-[45%] h-[60px] duration-300 relative   bg-[#00A67E] hover:bg-green-400  font-semibold py-4 px-6   border-black cursor-pointer hover:border-transparent rounded-[18px]  text-xl" onClick={() => {
-                            setDescription("Generating an awesome image description for you... flex justify-center items-center")
+                            setDescription("Generating an awesome image description for you...")
                             getPrompt({ what: what })
                         }}>
                             <NextImage src={logo} alt="OpenAI Icon" className="invert group-hover:invert-0 absolute right-9 top-3" width={35} height={35} />

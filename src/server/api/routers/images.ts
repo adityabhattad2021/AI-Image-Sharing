@@ -162,14 +162,26 @@ export const imageRouter = createTRPCRouter({
       return allImages;
     }),
 
-  getUserImages: privateProcedure.query(async ({ ctx }) => {
+  getUserImages: privateProcedure.input(
+    z.object({
+      limit:z.number().min(1).max(100).default(10),
+      cursor:z.string().nullish()
+    })
+  ).query(async ({ ctx,input }) => {
+    const {limit,cursor} = input;
     const authorId = ctx.userId;
     const images = await ctx.prisma.imageCollection.findMany({
       where: { authorId },
-      take: 100,
+      take: limit+1,
+      cursor:cursor? {id:cursor}:undefined,
       orderBy: [{ createdAt: "desc" }],
     });
-    return images;
+    let nextCursor:typeof cursor | undefined;
+    if(images.length > limit){
+      const nextItem = images.pop() as typeof images[number];
+      nextCursor = nextItem.id;
+    }
+    return {images,nextCursor};
   }),
   
   delete:privateProcedure.input(z.object({
