@@ -8,7 +8,7 @@ import Navbar from "~/components/Navbar";
 import { api } from "~/utils/api";
 
 const Home: NextPage = () => {
-  api.images.getAll.useQuery()
+  api.images.getAll.useQuery({limit:10})
   const {mutate}=api.images.generateImages.useMutation({
     onError:(e)=>{
       console.log(e);

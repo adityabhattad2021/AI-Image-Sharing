@@ -1,6 +1,7 @@
 import Masonry from "react-masonry-css";
 import ImageBox from "./Image";
 import { api } from "~/utils/api";
+import { useEffect, useState } from "react";
 
 
 const breakpoointColumnsObj = {
@@ -16,20 +17,52 @@ const breakpoointColumnsObj = {
 
 const MasonaryLayout = () => {
     
-    const {data}=api.images.getAll.useQuery()
-    
-    if(!data){
-        return <div>There was some problem loading...</div>
-    }
+    const {data,hasNextPage,fetchNextPage,isFetching}=api.images.getAll.useInfiniteQuery({limit:10},{getNextPageParam:(lastPage)=>lastPage.nextCursor})
 
-    return (
+    const useScrollPosition = () => {
+        const [scrollPosition,setScrollPosition] = useState<number>();
+
+        const handleScroll=()=>{
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const scrolled = (winScroll / height) * 100;
+            setScrollPosition(scrolled);
+        }
+
+        useEffect(()=>{
+            window.addEventListener("scroll",handleScroll,{passive:true})
+
+            return ()=>{
+                window.removeEventListener("scroll",handleScroll);
+            }
+        },[])
+        return scrollPosition;
+    } 
+
+    const scrollPosition = useScrollPosition()
+
+    const images = data?.pages.flatMap((page)=>page.images) ?? [];
+
+    
+    useEffect(()=>{
+        if(scrollPosition && scrollPosition>95 && hasNextPage && !isFetching){
+            void fetchNextPage()
+        }
+    },[scrollPosition,hasNextPage,isFetching,fetchNextPage])
+    
+
+    return (<>
         <Masonry className="flex animate-slide-fwd md:mt-[-15px] mx-2 md:mx-4" breakpointCols={breakpoointColumnsObj}>
-            {data.map((image,_index) => {
+            {images.map((image,_index) => {
                 return(
                     <ImageBox key={_index} {...image}/>
                 )
             })}
         </Masonry>
+        <div className="w-full flex justify-center font-bold font-Nota text-xl mb-4">
+            No More Images.
+        </div>
+        </>
     )
 }
 

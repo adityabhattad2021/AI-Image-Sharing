@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { v2 as cloudinary } from "cloudinary";
 import { Configuration, OpenAIApi } from "openai";
-import fs from "fs"
 
 import {
   createTRPCRouter,
@@ -23,18 +22,34 @@ const configuration = new Configuration({
 const openAI = new OpenAIApi(configuration);
 
 export const imageRouter = createTRPCRouter({
-  getAll: publicProcedure.query(async ({ ctx }) => {
+  getAll: publicProcedure.input(
+    z.object({
+      limit:z.number().min(1).max(100).default(10),
+      cursor:z.string().nullish()
+    })
+  ).query(async ({ ctx,input }) => {
+
+    const {limit,cursor} = input;
     const images = await ctx.prisma.imageCollection.findMany({
-      take: 100,
+      take: limit+1,
+      cursor:cursor? {id:cursor}:undefined,
       orderBy: [{ createdAt: "desc" }],
     });
-    return images;
+
+    let nextCursor:typeof cursor | undefined;
+
+    if(images.length > limit){
+      const nextItem = images.pop() as typeof images[number];
+      nextCursor = nextItem.id;
+    }
+    return {images,nextCursor};
   }),
 
   generatePrompt: privateProcedure
     .input(
       z.object({
         what: z.string().min(1).max(255),
+        cursor: z.string().nullish()
       })
     )
     .mutation(async ({ input }) => {
@@ -95,7 +110,6 @@ export const imageRouter = createTRPCRouter({
     })
   ).mutation(async ({input})=>{
     try {
-      // console.log(input.imageFile);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const buffer:Buffer = Buffer.from(input.imageFile, 'base64');
       const file:any = buffer;
