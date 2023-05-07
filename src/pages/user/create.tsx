@@ -91,8 +91,8 @@ const Create = () => {
             {openConfirmVariationModal && <ConfirmModal image={imageForVariation as File} setOpenConfirmVariationModal={setOpenConfirmVariationModal} setImageForVariation={setImageForVariation as Dispatch<SetStateAction<File>>} setGeneratedImages={setGeneratedImages} setImageModal={setModalOpen} />}
             {modalOpen && <Modal setModalOpen={setModalOpen} generatedImages={generatedImages} prompt={description} />}
             <Navbar isInside={true} isCreate={true}/>
-            <div className="w-[93%] md:w-[95%]  overflow-hidden h-[100%]  flex flex-col md:justify-center items-center gap-6 mx-4 mt-[60px] md:mt-[-40px] relative">
-                <h1 className="text-5xl md:text-6xl font-Nota mt-8 md:mt-10">Create</h1>
+            <div className="w-[93%] md:w-[95%]  overflow-hidden h-[100%]  flex flex-col md:justify-center items-center gap-6 mx-4 mt-[15px] md:mt-[-40px] relative">
+                <h1 className="text-4xl md:text-6xl font-Nota mt-8 md:mt-10">Create</h1>
                 <div className="flex flex-col mt-4 w-full md:w-[900px] gap-6">
                     <div className="w-full flex flex-col md:flex-row gap-2">
                         <input className="placeholder-black duration-400 ease-in-out w-full md:w-[75%] h-[60px] font-Nota font-bold backdrop-filter backdrop-blur-lg bg-opacity-10 bg-black focus:ring-white focus:border-white focus:shadow-lg p-4 rounded-[20px]" value={what} onChange={(e) => setWhat(e.target.value)} placeholder="What do you want to create?" />
@@ -134,8 +134,8 @@ const Create = () => {
                             setDescription("Generating an awesome image description for you...")
                             getPrompt({ what: what })
                         }}>
-                            <NextImage src={logo} alt="OpenAI Icon" className="invert group-hover:invert-0 absolute right-9 top-3" width={35} height={35} />
-                            <h1 className="absolute left-10 top-3 mr-2 text-white group-hover:text-black text-2xl font-Nota">Ask</h1>
+                            <NextImage src={logo} alt="OpenAI Icon" className="invert group-hover:invert-0 absolute right-7 top-3" width={35} height={35} />
+                            <h1 className="absolute left-6 top-3.5 mr-2 text-white group-hover:text-black text-2xl font-Nota">Ask</h1>
                         </button>
                     </div>}
                 </div>

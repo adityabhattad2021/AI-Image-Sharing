@@ -18,7 +18,7 @@ const Navbar = (props: Props) => {
         <nav className={`ease-in-out duration-300 md:m-7 px-4 md:rounded-3xl ${!props.isCreate && "sticky top-0 md:top-2 z-10 bg-black backdrop-filter backdrop-blur-xl"} ${props.isCreate ? "bg-opacity-20" : "bg-opacity-30"}  md:border-black ${!props.isCreate && "shadow-[rgba(_0,_0,_0,_0.9)_0px_9px_15px]"}`}>
             <div className="w-full mx-auto px-4">
                 <div className="flex items-center justify-between h-24">
-                    <Link href="/"><span className="text-3xl text-gray-900 font-bold font-Nota cursor-pointer">PixelMind</span></Link>
+                    <Link href="/"><span className="text-2xl md:text-3xl text-gray-900 font-bold font-Nota cursor-pointer">PixelMind</span></Link>
                     <div className="hidden space-x-4 text-gray-900 md:flex ease-in-out duration-300">
                         {isSignedIn && <><div className="ease-in-out duration-300  text-black  font-semibold hover:text-white py-4 px-6 m-[-15px] border-black cursor-pointer hover:border-transparent rounded-[18px] font-Nota  text-xl">{isSignedIn && <Link href="/user/collection">Your Collection</Link>}</div>
                             <div className="ease-in-out duration-300  text-black  font-semibold hover:text-white py-4 px-6 m-[-15px]  border-black cursor-pointer hover:border-transparent rounded-[18px] font-Nota  text-xl">{isSignedIn && <Link href="/user/create">Create</Link>}</div></>}
