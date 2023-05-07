@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { MdDeleteForever } from "react-icons/md";
 import useScrollPosition from "~/hooks/useScrollPosition";
+import Navbar from "~/components/Navbar";
 
 
 
@@ -90,6 +91,7 @@ const CustomMasonaryLayout = () => {
     }
     return (
         <>
+
             <Masonry className="flex animate-slide-fwd md:mt-[-15px] mx-2 md:mx-4" breakpointCols={breakpoointColumnsObj}>
                 {images.map((image, _index) => {
                     return (
@@ -106,10 +108,13 @@ const CustomMasonaryLayout = () => {
 
 const CollectionPage = () => {
     return (
-        <div className="w-full h-full flex justify-center items-center flex-col">
-            <h1 className="ease-in-out duration-300 text-4xl md:text-6xl font-Nota my-12 md:my-20">Your Collection</h1>
-            <CustomMasonaryLayout />
-        </div>
+        <>
+            <Navbar isInside={true} isCreate={false} />
+            <div className="w-full h-full flex justify-center items-center flex-col">
+                <h1 className="ease-in-out duration-300 text-4xl md:text-6xl font-Nota my-12 md:mb-20">Your Collection</h1>
+                <CustomMasonaryLayout />
+            </div>
+        </>
     )
 }
 

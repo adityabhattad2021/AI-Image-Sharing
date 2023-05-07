@@ -24,7 +24,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="w-full h-full bg-white">
-        <Navbar />
+        <Navbar isInside={false} isCreate={false} />
         <MasonaryLayout/>
       </main>
     </>
