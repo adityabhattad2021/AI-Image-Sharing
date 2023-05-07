@@ -83,8 +83,8 @@ const Create = () => {
             {openConfirmVariationModal && <ConfirmModal image={imageForVariation as File} setOpenConfirmVariationModal={setOpenConfirmVariationModal} setImageForVariation={setImageForVariation as Dispatch<SetStateAction<File>>} setGeneratedImages={setGeneratedImages} setImageModal={setModalOpen} />}
             {modalOpen && <Modal setModalOpen={setModalOpen} generatedImages={generatedImages} prompt={description} />}
             <Navbar isInside={true} isCreate={true}/>
-            <div className="w-[93%] md:w-[95%]  overflow-hidden h-[100%]  flex flex-col md:justify-center items-center gap-6 mx-4 mt-[80px] md:my-auto relative">
-                <h1 className="text-5xl md:text-6xl font-Nota mt-8 md:mt-30">Create</h1>
+            <div className="w-[93%] md:w-[95%]  overflow-hidden h-[100%]  flex flex-col md:justify-center items-center gap-6 mx-4 mt-[60px] md:mt-[-40px] relative">
+                <h1 className="text-5xl md:text-6xl font-Nota mt-8 md:mt-10">Create</h1>
                 <div className="flex flex-col mt-4 w-full md:w-[900px] gap-6">
                     <div className="w-full flex flex-col md:flex-row gap-2">
                         <input className="placeholder-black duration-400 ease-in-out w-full md:w-[75%] h-[60px] font-Nota font-bold backdrop-filter backdrop-blur-lg bg-opacity-10 bg-black focus:ring-white focus:border-white focus:shadow-lg p-4 rounded-[20px]" value={what} onChange={(e) => setWhat(e.target.value)} placeholder="What do you want to create?" />
@@ -104,7 +104,7 @@ const Create = () => {
                     <div className="w-full">
                         <textarea name="detailedDescription" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Describe as precisely as possible..." cols={30} rows={6} className="w-full rounded-[20px] placeholder-black transition-400 ease-in-out font-Nota font-bold backdrop-filter backdrop-blur-lg bg-opacity-10 bg-black focus:ring-white focus:border-white focus:shadow-lg p-4"></textarea>
                     </div>
-                    <div className="w-full h-[70px] md:h-[200px] rounded-[30px] duration-400 ease-in-out flex justify-center items-center font-Nota font-bold backdrop-filter backdrop-blur-lg bg-opacity-10 bg-black focus:ring-white focus:border-white focus:shadow-lg p-4">
+                    <div className="w-full h-[70px] md:h-[230px] rounded-[30px] duration-400 ease-in-out flex justify-center items-center font-Nota font-bold backdrop-filter backdrop-blur-lg bg-opacity-10 bg-black focus:ring-white focus:border-white focus:shadow-lg p-4">
                         <label htmlFor="imagefile" className="cursor-pointer text-black font-Nota font-bold">&#x2022; Or select an existing image</label>
                         <input id="imagefile" type="file" className="hidden" onChange={(e) => handleImageUpload(e)} />
                     </div>

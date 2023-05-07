@@ -68,7 +68,7 @@ const ConfirmModal = (props: ConfirmModalProps) => {
 
 
     return (
-        <div className="w-full h-screen z-50 backdrop-blur-sm flex justify-center items-center absolute inset-0 ">
+        <div className="w-full h-screen z-50 backdrop-blur-sm flex justify-center items-center absolute inset-0">
             <div className="w-[80%] md:w-[40%] h-[50%] md:h-[89%] bg-white rounded-xl shadow-xl flex flex-col justify-center items-center gap-4 p-4 relative">
                 <h1 className="text-2xl md:text-4xl font-Nota font-bold mt-5">Confirm</h1>
                 <button className="absolute top-4 right-4" onClick={() => {

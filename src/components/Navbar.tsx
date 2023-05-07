@@ -15,7 +15,7 @@ const Navbar = (props:Props) => {
 
     return (
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        <nav className={`ease-in-out duration-300 md:m-7 px-4 md:rounded-3xl ${!props.isCreate && "sticky top-0 md:top-2 z-10 bg-black backdrop-filter backdrop-blur-xl"} ${props.isInside ? "bg-opacity-20" :"bg-opacity-30"}  md:border-black ${!props.isInside && "shadow-[rgba(_0,_0,_0,_0.9)_0px_20px_35px]"}`}>
+        <nav className={`ease-in-out duration-300 md:m-7 px-4 md:rounded-3xl ${!props.isCreate && "sticky top-0 md:top-2 z-10 bg-black backdrop-filter backdrop-blur-xl"} ${props.isCreate ? "bg-opacity-20" :"bg-opacity-30"}  md:border-black ${!props.isCreate && "shadow-[rgba(_0,_0,_0,_0.9)_0px_9px_15px]"}`}>
             <div className="w-full mx-auto px-4">
                 <div className="flex items-center justify-between h-24">
                     <Link href="/"><span className="text-3xl text-gray-900 font-bold font-Nota cursor-pointer">PixelMind</span></Link>
