@@ -2,6 +2,7 @@ import Masonry from "react-masonry-css";
 import ImageBox from "./Image";
 import { api } from "~/utils/api";
 import { useEffect, useState } from "react";
+import useScrollPosition from "~/hooks/useScrollPosition";
 
 
 const breakpoointColumnsObj = {
@@ -19,25 +20,7 @@ const MasonaryLayout = () => {
     
     const {data,hasNextPage,fetchNextPage,isFetching}=api.images.getAll.useInfiniteQuery({limit:10},{getNextPageParam:(lastPage)=>lastPage.nextCursor})
 
-    const useScrollPosition = () => {
-        const [scrollPosition,setScrollPosition] = useState<number>();
-
-        const handleScroll=()=>{
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const scrolled = (winScroll / height) * 100;
-            setScrollPosition(scrolled);
-        }
-
-        useEffect(()=>{
-            window.addEventListener("scroll",handleScroll,{passive:true})
-
-            return ()=>{
-                window.removeEventListener("scroll",handleScroll);
-            }
-        },[])
-        return scrollPosition;
-    } 
+    
 
     const scrollPosition = useScrollPosition()
 

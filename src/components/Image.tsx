@@ -3,7 +3,7 @@ import Image from "next/image";
 import { type RouterOutputs, api } from "~/utils/api";
 
 
-type ImageType = RouterOutputs["images"]["getAll"][number];
+type ImageType = RouterOutputs["images"]["getAll"]["images"][number];
 
 const ImageBox = (props:ImageType) => {
 
