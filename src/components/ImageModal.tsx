@@ -2,6 +2,7 @@ import type { ImagesResponseDataInner } from "openai"
 import { useState } from "react"
 import { AiOutlineCloseCircle } from "react-icons/ai"
 import { api } from "~/utils/api"
+import {toast} from "react-hot-toast"
 
 type Props = {
     setModalOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -12,9 +13,10 @@ type Props = {
 const Modal = ({ setModalOpen, generatedImages,prompt }: Props) => {
 
     const [selectedImages, setSelectedImages] = useState<ImagesResponseDataInner[]>([])
-    const { mutate, isLoading } = api.images.create.useMutation({
+    const { mutate,} = api.images.create.useMutation({
         onSuccess: () => {
-            console.log("data saved to collection");
+            toast.success("Images saved successfully!")
+            setModalOpen(false);
         }
     })
 
@@ -28,7 +30,7 @@ const Modal = ({ setModalOpen, generatedImages,prompt }: Props) => {
 
 
     const handleDownload = () => {
-        selectedImages.forEach((image, index) => {
+        selectedImages.forEach((image) => {
             const url = `${image.url || ""}`;
             const link = document.createElement("a");
             link.href = url;

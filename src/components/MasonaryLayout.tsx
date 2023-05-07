@@ -20,11 +20,7 @@ const breakpoointColumnsObj = {
 const MasonaryLayout = () => {
 
     const { data, hasNextPage, fetchNextPage, isFetching } = api.images.getAll.useInfiniteQuery({ limit: 10 }, { getNextPageParam: (lastPage) => lastPage.nextCursor })
-
-
-
     const scrollPosition = useScrollPosition()
-
     const images = data?.pages.flatMap((page) => page.images) ?? [];
 
 
@@ -34,10 +30,6 @@ const MasonaryLayout = () => {
         }
     }, [scrollPosition, hasNextPage, isFetching, fetchNextPage])
 
-
-    if(isFetching){
-        return <Loading/>
-    }
 
     return (
         <>

@@ -7,6 +7,7 @@ import ConfirmModal from "~/components/ConfirmModal";
 import Modal from "~/components/ImageModal";
 import Navbar from "~/components/Navbar";
 import { api } from "~/utils/api";
+import {toast} from "react-hot-toast"
 
 
 const Create = () => {
@@ -41,7 +42,7 @@ const Create = () => {
         return result.join("");
     }
 
-    const { mutate: getPrompt, isLoading: isGettingPrompt } = api.images.generatePrompt.useMutation({
+    const { mutate: getPrompt,} = api.images.generatePrompt.useMutation({
         onSuccess: (data) => {
             if (!data) {
                 console.log("There was some error while fetching the suggestion string");
@@ -49,11 +50,17 @@ const Create = () => {
             }
             const cleanData = getTextInsideAngleBrackets(data)
             setDescription(cleanData);
+            toast('Feel free to edit the description as you like...', {
+                icon: '📝',
+                style:{
+                    fontFamily:"Noto Sans Mono"
+                }
+            });
         }
     })
 
-    const { mutate: getImages, isLoading: isGettingImages } = api.images.generateImages.useMutation({
-        onSuccess: (data) => {
+    const { mutate: getImages, } = api.images.generateImages.useMutation({
+        onSuccess: (data:ImagesResponseDataInner[]) => {
             if (!data) {
                 console.log("There was some error while fetching the generated images");
 
@@ -61,6 +68,7 @@ const Create = () => {
             }
             console.log(data);
             setGeneratedImages(data);
+            toast.success("Successfully generated the images!")
             setModalOpen(true)
         }
     })
@@ -91,7 +99,12 @@ const Create = () => {
                         {
                             !isMobile && (
                                 <>
-                                    <button className="ease-in-out w-[16%] duration-300  text-white bg-black font-semibold hover:text-black hover:bg-white py-4 px-6   border-black cursor-pointer hover:border-transparent rounded-[18px] font-Nota text-xl" onClick={() => getImages({ description: description })} >Generate</button>
+                                    <button className="ease-in-out w-[16%] duration-300  text-white bg-black font-semibold hover:text-black hover:bg-white py-4 px-6   border-black cursor-pointer hover:border-transparent rounded-[18px] font-Nota text-xl" onClick={() => {
+                                        toast('Getting awesome images...', {
+                                            icon: '🚀',
+                                        });
+                                        getImages({ description: description })
+                                    }} >Generate</button>
                                     <button className="ease-in-out duration-300 w-full md:w-[7%] h-[60px] rounded-[20px]  bg-[#00A67E] hover:bg-green-400 mt-4 md:mt-0 flex justify-center items-center " onClick={() => {
                                         setDescription("Generating an awesome image description for you...")
                                         getPrompt({ what: what })
@@ -109,7 +122,12 @@ const Create = () => {
                         <input id="imagefile" type="file" className="hidden" onChange={(e) => handleImageUpload(e)} />
                     </div>
                     {isMobile && <div className="w-full h-[70px] md:h-[350px] flex justify-around items-center ">
-                        <button className="ease-in-out w-[45%] duration-300  text-white bg-black font-semibold font-Nota hover:text-black hover:bg-white py-4 px-6   border-black cursor-pointer hover:border-transparent rounded-[18px]  text-xl" onClick={() => getImages({ description: description })}>
+                        <button className="ease-in-out w-[45%] duration-300  text-white bg-black font-semibold font-Nota hover:text-black hover:bg-white py-4 px-6   border-black cursor-pointer hover:border-transparent rounded-[18px]  text-xl" onClick={() => {
+                            toast('Getting awesome images...', {
+                                icon: '🚀',
+                            });
+                            getImages({ description: description })
+                        }}>
                             Generate
                         </button>
                         <button className="group ease-in-out w-[45%] h-[60px] duration-300 relative   bg-[#00A67E] hover:bg-green-400  font-semibold py-4 px-6   border-black cursor-pointer hover:border-transparent rounded-[18px]  text-xl" onClick={() => {

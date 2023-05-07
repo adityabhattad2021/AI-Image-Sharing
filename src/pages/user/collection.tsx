@@ -4,6 +4,7 @@ import Image from "next/image";
 import { MdDeleteForever } from "react-icons/md";
 import useScrollPosition from "~/hooks/useScrollPosition";
 import Navbar from "~/components/Navbar";
+import Loading from "~/components/Loading";
 
 
 
@@ -86,12 +87,13 @@ const CustomMasonaryLayout = () => {
         }
     }, [scrollPosition, hasNextPage, isFetching, fetchNextPage])
 
-    if (!data) {
-        return <div>There was some problem loading...</div>
+    if(isFetching){
+        return <Loading/>
     }
+    
     return (
         <>
-
+            
             <Masonry className="flex animate-slide-fwd md:mt-[-15px] mx-2 md:mx-4" breakpointCols={breakpoointColumnsObj}>
                 {images.map((image, _index) => {
                     return (

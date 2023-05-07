@@ -2,6 +2,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai"
 import { default as NextImage } from "next/image";
 import { api } from "~/utils/api";
 import type { ImagesResponseDataInner } from "openai";
+import {toast} from "react-hot-toast"
 
 type ConfirmModalProps = {
     image: File
@@ -18,8 +19,8 @@ const ConfirmModal = (props: ConfirmModalProps) => {
         onSuccess: (data) => {
             props.setOpenConfirmVariationModal(false);
             props.setGeneratedImages(data);
+            toast.success("Variations generated successfully");
             props.setImageModal(true);
-            console.log("Variations generated successfully");
         }
     })
 
