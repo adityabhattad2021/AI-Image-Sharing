@@ -26,7 +26,7 @@ PixelMind provides the following features:
 - Protected routes
 
 ## TO DO
-There are some pending tasks that we plan to implement in the near future:
+There are some pending tasks that I plan to implement in the near future:
 
 - UI fix
 - Rate Limiting
