@@ -57,7 +57,7 @@ export const imageRouter = createTRPCRouter({
   generatePrompt: privateProcedure
     .input(
       z.object({
-        what: z.string().min(1).max(255),
+        what: z.string().min(1).max(100),
         cursor: z.string().nullish(),
       })
     )
