@@ -1,28 +1,47 @@
-# Create T3 App
+# PixelMind
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+PixelMind is a project that allows you to generate fresh images, variations of images, and prompts to create awesome images using the OpenAI API. It also provides features like infinite scroll, authentication, and protected routes for added security.
 
-## What's next? How do I make an app with this?
+## Tech Stack
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+PixelMind has been built using the following tech stack:
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- Clerk: 
+- Prisma
+- PlanetScale
+- Next.js
+- Tailwind CSS
+- React Query
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
 
-## Learn More
+## Features
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+PixelMind provides the following features:
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+- Create fresh images
+- Create variations of images
+- Create prompts to create images using Gpt-3.5
+- Infinite scroll
+- Authentication
+- Protected routes
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+## TO DO
+There are some pending tasks that I plan to implement in the near future:
 
-## How do I deploy this?
+- UI fix
+- Rate Limiting
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## Suggest a Feature
+If you have an interesting feature suggestion, please open an issue on our GitHub repository.
+
+
+## Preview:
+![PixelMind 1](https://user-images.githubusercontent.com/93488388/236698583-0e0b7524-936b-470a-84ec-90861d9bd0f1.png)
+![PixelMind 2](https://user-images.githubusercontent.com/93488388/236698588-a6a9cfa1-855d-4f30-a182-6d33ecc3cef4.png)
+![PixelMind 3](https://user-images.githubusercontent.com/93488388/236698587-f3c256db-ce91-4ab2-b2cc-6bb3ceaabdb2.png)
+![PixelMind 4](https://user-images.githubusercontent.com/93488388/236698586-4c9af304-1959-4572-8b9c-c6efa9df622c.png)
+![PixelMind 5](https://user-images.githubusercontent.com/93488388/236698585-f0516088-5f69-48b8-b4b0-56af5c310c47.png)
+
+## App is live [here](https://pixelmind.vercel.app/)
+
+
