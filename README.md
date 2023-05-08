@@ -24,12 +24,12 @@ PixelMind provides the following features:
 - Infinite scroll
 - Authentication
 - Protected routes
+- Rate Limiting
 
 ## TO DO
 There are some pending tasks that I plan to implement in the near future:
 
 - UI fix
-- Rate Limiting
 
 ## Suggest a Feature
 If you have an interesting feature suggestion, please open an issue on our GitHub repository.
