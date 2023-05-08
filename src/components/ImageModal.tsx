@@ -44,7 +44,7 @@ const Modal = ({ setModalOpen, generatedImages,prompt }: Props) => {
 
     const handleSaveToCollection = () => {
         const imageUrls:string[] = selectedImages.map((image) => image.url || "");
-        mutate({ images: imageUrls,prompt:prompt });
+        mutate({ images: imageUrls,prompt:prompt || "Variation of already existing image." });
     }
 
     return (
