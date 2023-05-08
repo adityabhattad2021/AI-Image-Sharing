@@ -32,7 +32,7 @@ There are some pending tasks that I plan to implement in the near future:
 - UI fix
 
 ## Suggest a Feature
-If you have an interesting feature suggestion, please open an issue on our GitHub repository.
+If you have an interesting feature suggestion, please open an issue on this GitHub repository.
 
 
 ## Preview:
