@@ -72,7 +72,11 @@ const Create = () => {
             }
             console.log(data);
             setGeneratedImages(data);
-            toast.success("Successfully generated the images!")
+            toast.success("Successfully generated the images!",{
+                style:{
+                    fontFamily:"Noto Sans Mono"
+                }
+            })
             setModalOpen(true)
         }
     })
