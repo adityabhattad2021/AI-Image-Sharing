@@ -56,6 +56,10 @@ const Create = () => {
                     fontFamily:"Noto Sans Mono"
                 }
             });
+        },
+
+        onError:(e)=>{
+            console.log(e); 
         }
     })
 

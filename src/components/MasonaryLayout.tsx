@@ -3,8 +3,6 @@ import ImageBox from "./Image";
 import { api } from "~/utils/api";
 import { useEffect, useState } from "react";
 import useScrollPosition from "~/hooks/useScrollPosition";
-import Loading from "./Loading";
-
 
 const breakpoointColumnsObj = {
     default: 4,
