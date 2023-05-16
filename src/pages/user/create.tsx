@@ -73,6 +73,7 @@ const Create = () => {
             console.log(data);
             setGeneratedImages(data);
             toast.success("Successfully generated the images!",{
+                icon:'✅',
                 style:{
                     fontFamily:"Noto Sans Mono"
                 }
@@ -109,7 +110,10 @@ const Create = () => {
                                 <>
                                     <button className="ease-in-out w-[16%] duration-300  text-white bg-black font-semibold hover:text-black hover:bg-white py-4 px-6   border-black cursor-pointer hover:border-transparent rounded-[18px] font-Nota text-xl" onClick={() => {
                                         toast('Getting awesome images...', {
-                                            icon: '🚀',
+                                            icon:'🚀',
+                                            style:{
+                                                fontFamily:"Noto Sans Mono"
+                                            }
                                         });
                                         getImages({ description: description })
                                     }} >Generate</button>
@@ -133,6 +137,9 @@ const Create = () => {
                         <button className="ease-in-out w-[45%] duration-300  text-white bg-black font-semibold font-Nota hover:text-black hover:bg-white py-4 px-6   border-black cursor-pointer hover:border-transparent rounded-[18px]  text-xl" onClick={() => {
                             toast('Getting awesome images...', {
                                 icon: '🚀',
+                                style:{
+                                    fontFamily:"Noto Sans Mono"
+                                }
                             });
                             getImages({ description: description })
                         }}>
